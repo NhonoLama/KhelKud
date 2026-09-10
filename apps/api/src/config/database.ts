@@ -1,4 +1,4 @@
 import { createDatabase } from "@khelkud/database";
 import { env } from "./env.js";
 
-export const { db, pool } = createDatabase(env.DATABASE_URL);
+export const { db, pool , checkConnection } = createDatabase(env.DATABASE_URL);

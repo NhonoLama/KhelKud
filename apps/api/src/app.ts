@@ -1,8 +1,27 @@
 import express from "express";
+import { checkConnection } from "./config/database.js";
 
 const app = express();
 
 app.use(express.json());
+
+app.get("/health/database", async (_req, res) => {
+  try {
+    await checkConnection();
+
+    res.json({
+      status: "ok",
+      database: "connected",
+    });
+  } catch (error) {
+    console.error("Database health check failed:", error);
+
+    res.status(503).json({
+      status: "error",
+      database: "disconnected",
+    });
+  }
+});
 
 app.get("/health", (_req, res) => {
   res.json({
