@@ -1,6 +1,5 @@
-import type {
-  ErrorRequestHandler,
-} from "express";
+import type { ErrorRequestHandler } from "express";
+import { sendError } from "../utils/response.js";
 
 export const errorHandler: ErrorRequestHandler = (
   error,
@@ -10,7 +9,9 @@ export const errorHandler: ErrorRequestHandler = (
 ) => {
   console.error(error);
 
-  res.status(500).json({
-    message: "Internal server error",
-  });
+  sendError(
+    res,
+    "Internal server error",
+    500
+  );
 };

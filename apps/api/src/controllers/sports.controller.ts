@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { getSports } from "../services/sports.service.js";
+import { sendSuccess } from "../utils/response.js";
 
 export async function getSportsController(
   _req: Request,
@@ -7,7 +8,5 @@ export async function getSportsController(
 ) {
   const result = await getSports();
 
-  res.json({
-    data: result,
-  });
+  return sendSuccess(res, result);
 }

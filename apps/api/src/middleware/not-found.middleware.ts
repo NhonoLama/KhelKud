@@ -1,11 +1,13 @@
 import type { RequestHandler } from "express";
+import { sendError } from "../utils/response.js";
 
 export const notFoundHandler: RequestHandler = (
-  req,
+  _req,
   res
 ) => {
-  res.status(404).json({
-    message: "Route not found",
-    path: req.originalUrl,
-  });
+  return sendError(
+    res,
+    "Route not found",
+    404
+  );
 };
