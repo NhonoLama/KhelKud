@@ -4,6 +4,7 @@ import {
   getSportsController,
   getSportBySlugController,
   createSportController,
+  deleteSportBySlugController,
 } from "../controllers/sports.controller.js";
 
 import { validateBody,validateParams } from "../middleware/validate.middleware.js";
@@ -26,6 +27,12 @@ router.post(
   "/",
   validateBody(createSportBodySchema),
   createSportController
+);
+
+router.delete(
+  "/:slug",
+  validateParams(sportSlugParamsSchema),
+  deleteSportBySlugController
 );
 
 export default router;

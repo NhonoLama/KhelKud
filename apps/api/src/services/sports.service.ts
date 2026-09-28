@@ -33,3 +33,12 @@ export async function createSport(
   return sport ?? null;
 }
 
+export async function deleteSportBySlug(slug: string) {
+  const [sport] = await db
+    .delete(sports)
+    .where(eq(sports.slug, slug))
+    .returning();
+
+  return sport ?? null;
+}
+

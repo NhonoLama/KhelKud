@@ -4,6 +4,7 @@ import {
   getSports,
   getSportBySlug,
   createSport,
+  deleteSportBySlug,
 } from "../services/sports.service.js";
 
 import {
@@ -63,4 +64,20 @@ export async function createSportController(
     sport,
     201
   );
+}
+
+export async function deleteSportBySlugController(
+  req: Request<{ slug: string }>,
+  res: Response
+) {
+  const { slug } = req.params;
+
+  const sport = await deleteSportBySlug(slug);
+
+  if (!sport) {
+    sendError(res, "Sport not found", 404);
+    return;
+  }
+
+  return sendSuccess(res, sport);
 }
