@@ -21,3 +21,23 @@ export function validateParams(
     next();
   };
 }
+
+export function validateBody(
+  schema: ZodType
+): RequestHandler {
+  return (req, res, next) => {
+    const result = schema.safeParse(req.body);
+
+    if (!result.success) {
+      sendError(
+        res,
+        "Invalid request body",
+        400
+      );
+
+      return;
+    }
+
+    next();
+  };
+}

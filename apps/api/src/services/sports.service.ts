@@ -1,6 +1,12 @@
 import { eq, sports } from "@khelkud/database";
 import { db } from "../config/database.js";
 
+type CreateSportInput = {
+  name: string;
+  slug: string;
+};
+
+
 export async function getSports() {
   return db.select().from(sports);
 }
@@ -14,3 +20,16 @@ export async function getSportBySlug(slug: string) {
 
   return sport ?? null;
 }
+
+export async function createSport(
+  input: CreateSportInput
+) {
+  const [sport] = await db
+    .insert(sports)
+    .values(input)
+    .onConflictDoNothing()
+    .returning();
+
+  return sport ?? null;
+}
+
